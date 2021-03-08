@@ -9,11 +9,11 @@
 
 This Terraform module deploys a Hub and Spoke vNET pair in two Azure Regions ["Local" and "Remote"]. A VM is deployed in each spoke, with outbound internet connectivity enabled by a UDR via the local firewall. A [Site-to-Site] VPN Gateway is deployed in each Hub with an IPSec Tunnel connecting each Hub. Spoke to Spoke routing is enable via BGP
 
-Public RDP connectivity to each VM is enabled via a DNAT Rule [port 8080] on the public endpoint of the Firewall. Don't forget to include your RDP Client IP Address is variables.tf.
+Public RDP connectivity to each VM is enabled via a DNAT Rule [port 8080] on the public endpoint of the Firewall. Don't forget to include your RDP Client IP Address in variables.tf.
 
 Once deployed it should look like this:
 
-![image](images/azure-hub-spoke-app-gateway.png)
+![image](images/azure-s2s-cross-vnet.png)
 
 # Deployment
 
@@ -61,13 +61,13 @@ After the Terraform deployment concludes successfully, the following has been de
 Verify these resources are present in the portal.
 
 Credentials are identical for both VMs:
-- User name: AdminUser
+- User name: adminuser
 - Password: Pa55w0rd123!
 
 ## Delete all resources
 
-Delete the tf-app-gw-lab-rg resource groups. This may take up to 20 minutes to complete. Check back to verify that all resources have indeed been deleted.
+Delete both the tf-s2s-cross-vnet-lab-local-rg and tf-s2s-cross-vnet-lab-remote-rg resource groups. This may take up to 20 minutes to complete. Check back to verify that all resources have indeed been deleted.
 
-In Cloud Shell, delete the azure-hub-spoke-app-gateway directory:
+In Cloud Shell, delete the azure-s2s-cross-vnet directory:
 
 `rm -rf azure-s2s-cross-vnet`
