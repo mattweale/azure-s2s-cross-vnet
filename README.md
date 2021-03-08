@@ -1,4 +1,4 @@
-# **Azure Firewall and Application Gateway in Parallel in Hub <> Spoke**
+# **Azure Cross vNET Site to Site VPN**
 
 # Contents
 [Overview](#overview)
