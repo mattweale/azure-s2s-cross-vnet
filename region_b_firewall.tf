@@ -47,3 +47,34 @@ resource "azurerm_firewall_nat_rule_collection" "remote_default_dnat" {
     protocols             = ["TCP"]
   }
 }
+
+#######################################################################
+## Create outbound rule for VM
+#######################################################################
+resource "azurerm_firewall_network_rule_collection" "remote_spoke_outbound_rule" {
+  name                = "${var.prefix}remote-spoke-outbound-rule"
+  azure_firewall_name = azurerm_firewall.remote_fw.name
+  resource_group_name = azurerm_resource_group.remote_rg.name
+  priority            = 110
+  action              = "Allow"
+
+  rule {
+    name = "Outbound"
+
+    source_addresses = [
+      azurerm_windows_virtual_machine.remote_windows_vm.private_ip_address,
+    ]
+
+    destination_ports = [
+      "*",
+    ]
+
+    destination_addresses = [
+      "*"
+    ]
+
+    protocols = [
+      "Any"
+    ]
+  }
+}
