@@ -5,7 +5,7 @@
 ## Create Hub vNET with Firewall Subnet and Gateway Subnet
 #######################################################################
 resource "azurerm_virtual_network" "local_hub_vnet" {
-  name                = "${var.prefix}.local-hub-vnet"
+  name                = "${var.prefix}local-hub-vnet"
   resource_group_name = azurerm_resource_group.local_rg.name
   location            = var.local_location
   address_space       = ["10.0.0.0/16"]
@@ -30,7 +30,7 @@ resource "azurerm_subnet" "local_gw_subnet" {
 ## Create Spoke vNET with two subnets
 #######################################################################
 resource "azurerm_virtual_network" "local_spoke_vnet" {
-  name                = "${var.prefix}.local-spoke-vnet"
+  name                = "${var.prefix}local-spoke-vnet"
   resource_group_name = azurerm_resource_group.local_rg.name
   location            = var.local_location
   address_space       = ["10.1.0.0/16"]
@@ -57,7 +57,7 @@ resource "azurerm_subnet" "local_subnet2" {
 ## Create vNET Peer between Local Hub and Spoke
 #######################################################################
 resource "azurerm_virtual_network_peering" "local_hub-to-spoke-peer" {
-  name                         = "${var.prefix}.local_hub-to-spoke-peer"
+  name                         = "${var.prefix}local_hub-to-spoke-peer"
   resource_group_name          = azurerm_resource_group.local_rg.name
   virtual_network_name         = azurerm_virtual_network.local_hub_vnet.name
   remote_virtual_network_id    = azurerm_virtual_network.local_spoke_vnet.id
@@ -67,7 +67,7 @@ resource "azurerm_virtual_network_peering" "local_hub-to-spoke-peer" {
 }
 
 resource "azurerm_virtual_network_peering" "local_spoke-to-hub-peer" {
-  name                         = "${var.prefix}.local_spoke-to-hub-peer"
+  name                         = "${var.prefix}local_spoke-to-hub-peer"
   resource_group_name          = azurerm_resource_group.local_rg.name
   virtual_network_name         = azurerm_virtual_network.local_spoke_vnet.name
   remote_virtual_network_id    = azurerm_virtual_network.local_hub_vnet.id
@@ -81,7 +81,7 @@ resource "azurerm_virtual_network_peering" "local_spoke-to-hub-peer" {
 ## Create and assign NSG for Spoke Subnets
 #######################################################################
 resource "azurerm_network_security_group" "local_nsg_spoke" {
-  name                = "${var.prefix}.local-spoke-nsg"
+  name                = "${var.prefix}local-spoke-nsg"
   location            = var.local_location
   resource_group_name = azurerm_resource_group.local_rg.name
 
@@ -101,19 +101,19 @@ resource "azurerm_network_security_group" "local_nsg_spoke" {
 
 resource "azurerm_subnet_network_security_group_association" "local_assoc_nsg_subnet1" {
   subnet_id                 = azurerm_subnet.local_subnet1.id
-  network_security_group_id = azurerm_network_security_group.local_nsgspoke.id
+  network_security_group_id = azurerm_network_security_group.local_nsg_spoke.id
 }
 
 resource "azurerm_subnet_network_security_group_association" "local_assoc_nsg_subnet2" {
   subnet_id                 = azurerm_subnet.local_subnet2.id
-  network_security_group_id = azurerm_network_security_group.local_nsgspoke.id
+  network_security_group_id = azurerm_network_security_group.local_nsg_spoke.id
 }
 
 #######################################################################
 ## Create route table for Spoke and associate with Subnets
 #######################################################################
 resource "azurerm_route_table" "local_default_route_table" {
-  name                          = "${var.prefix}.local-spoke-default-route-table"
+  name                          = "${var.prefix}local-spoke-default-route-table"
   location                      = var.local_location
   resource_group_name           = azurerm_resource_group.local_rg.name
   disable_bgp_route_propagation = false

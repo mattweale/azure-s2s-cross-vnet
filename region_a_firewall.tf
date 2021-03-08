@@ -2,7 +2,7 @@
 ## Create Firewall for Region A [Local]
 #######################################################################
 resource "azurerm_public_ip" "local_fw_pip" {
-  name                = "${var.prefix}.local-firewall-pip"
+  name                = "${var.prefix}local-firewall-pip"
   location            = var.local_location
   resource_group_name = azurerm_resource_group.local_rg.name
   allocation_method   = "Static"
@@ -10,7 +10,7 @@ resource "azurerm_public_ip" "local_fw_pip" {
 }
 
 resource "azurerm_firewall" "local_fw" {
-  name                = "${var.prefix}.local-firewall"
+  name                = "${var.prefix}local-firewall"
   location            = var.local_location
   resource_group_name = azurerm_resource_group.local_rg.name
   sku_name            = "AZFW_VNet"

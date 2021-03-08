@@ -18,7 +18,7 @@ resource "azurerm_network_interface" "local_vmnic" {
 
 resource "azurerm_windows_virtual_machine" "local_windows_vm" {
   name                = "local-dev-vm"
-  resource_group_name = local_rg.name
+  resource_group_name = azurerm_resource_group.local_rg.name
   location            = var.local_location
   size                = var.vmsize
   admin_username      = var.username
@@ -63,7 +63,7 @@ resource "azurerm_windows_virtual_machine" "remote_windows_vm" {
   size                = var.vmsize
   admin_username      = var.username
   admin_password      = var.password
-  network_interface_ids = [ 
+  network_interface_ids = [
     azurerm_network_interface.remote_vmnic.id,
   ]
 

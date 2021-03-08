@@ -2,16 +2,16 @@
 ## Create VPN Gateway for Region A [Local]
 #######################################################################
 resource "azurerm_public_ip" "local_gw_pip" {
-  name                = "${var.prefix}.local-gw-pip"
+  name                = "${var.prefix}local-gw-pip"
   location            = var.local_location
-  resource_group_name = azurerm_resource_group.localrg.name
+  resource_group_name = azurerm_resource_group.local_rg.name
   allocation_method   = "Dynamic"
 }
 
 resource "azurerm_virtual_network_gateway" "local_network_gateway" {
-  name                = "${var.prefix}.local-vpn-gateway"
+  name                = "${var.prefix}local-vpn-gateway"
   location            = var.local_location
-  resource_group_name = azurerm_resource_group.localrg.name
+  resource_group_name = azurerm_resource_group.local_rg.name
 
   type     = "Vpn"
   vpn_type = "RouteBased"
@@ -36,7 +36,7 @@ resource "azurerm_virtual_network_gateway" "local_network_gateway" {
 ## Create connection
 #######################################################################
 resource "azurerm_virtual_network_gateway_connection" "local-to-remote" {
-  name                = "${var.prefix}.local-to-remote"
+  name                = "${var.prefix}local-to-remote"
   location            = var.local_location
   resource_group_name = azurerm_resource_group.local_rg.name
 
@@ -46,7 +46,7 @@ resource "azurerm_virtual_network_gateway_connection" "local-to-remote" {
   enable_bgp                      = true
 
   #shared_key = data.azurerm_key_vault_secret.s2s_vpn_psk.value
-  shared_key = random_password.vpn_psk
+  shared_key = random_password.vpn_psk.result
 
   depends_on = [azurerm_virtual_network_gateway.remote_network_gateway]
 }

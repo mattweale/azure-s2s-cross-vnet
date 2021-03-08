@@ -2,7 +2,7 @@
 ## Create Resource Group for Region 1 [Local]
 #######################################################################
 resource "azurerm_resource_group" "local_rg" {
-  name     = "${var.prefix}.${random_string.random.result}local-rg"
+  name     = "${var.prefix}local-rg"
   location = var.local_location
   tags     = var.tags
 }
@@ -11,7 +11,7 @@ resource "azurerm_resource_group" "local_rg" {
 ## Create Resource Group for Region 2 {Remote]
 #######################################################################
 resource "azurerm_resource_group" "remote_rg" {
-  name     = "${var.prefix}.${random_string.random.result}remote--rg"
+  name     = "${var.prefix}remote-rg"
   location = var.local_location
   tags     = var.tags
 }

@@ -32,7 +32,7 @@ variable "tags" {
 variable "username" {
   description = "Username for Virtual Machines"
   type        = string
-  default     = "AdminUser"
+  default     = "adminuser"
 }
 variable "password" {
   description = "Virtual Machine password, must meet Azure complexity requirements"
@@ -45,8 +45,5 @@ variable "vmsize" {
 }
 variable "source_ip" {
   description = "Source ip address for RDP inbound"
+  #default     = "Your IP"
 }
-variable "kv_uri" {
-  type        = string
-  description = "URI of Key Vault"
-  default     = "https://mrw-keyvault.vault.azure.net/"

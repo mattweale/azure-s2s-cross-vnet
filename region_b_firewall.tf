@@ -2,7 +2,7 @@
 ## Create Firewall for Region B [Remote]
 #######################################################################
 resource "azurerm_public_ip" "remote_fw_pip" {
-  name                = "${var.prefix}.${random_string.random.result}-remote-firewall-pip"
+  name                = "${var.prefix}remote-firewall-pip"
   location            = var.remote_location
   resource_group_name = azurerm_resource_group.remote_rg.name
   allocation_method   = "Static"
@@ -11,7 +11,7 @@ resource "azurerm_public_ip" "remote_fw_pip" {
 
 # Create firewall
 resource "azurerm_firewall" "remote_fw" {
-  name                = "${var.prefix}.${random_string.random.result}-remote-firewall"
+  name                = "${var.prefix}remote-firewall"
   location            = var.remote_location
   resource_group_name = azurerm_resource_group.remote_rg.name
   sku_name            = "AZFW_VNet"
