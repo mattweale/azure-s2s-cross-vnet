@@ -13,6 +13,8 @@ resource "azurerm_virtual_network_gateway" "local_network_gateway" {
   location            = var.local_location
   resource_group_name = azurerm_resource_group.local_rg.name
 
+  depends_on          = [azurerm_public_ip.local_gw_pip]
+
   type     = "Vpn"
   vpn_type = "RouteBased"
 

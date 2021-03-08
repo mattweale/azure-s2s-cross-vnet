@@ -14,6 +14,8 @@ resource "azurerm_virtual_network_gateway" "remote_network_gateway" {
   location            = var.remote_location
   resource_group_name = azurerm_resource_group.remote_rg.name
 
+  depends_on          = [azurerm_public_ip.remote_gw_pip]
+
   type     = "Vpn"
   vpn_type = "RouteBased"
 
