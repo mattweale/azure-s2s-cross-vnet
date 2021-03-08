@@ -35,6 +35,6 @@ override.tf.json
 # example: *tfplan*
 
 # Include any other files or folders
-**/.draw.io/*
+draw.io/**
 logging.tf
 keyvault.tf
