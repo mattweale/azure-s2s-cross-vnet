@@ -19,6 +19,9 @@ output "local_hub_firewall_private_ip_address" {
 output "local_network_gateway" {
   value       = azurerm_public_ip.local_gw_pip.ip_address
   description = "The public IP address of the local network gateway"
+
+  depends_on =  [azurerm_virtual_network_gateway.local_network_gateway]
+
 }
 
 output "remote_hub_firewall_private_ip_address" {
@@ -39,4 +42,6 @@ output "remote_vm_private_ip_address" {
 output "remote_network_gateway" {
   value       = azurerm_public_ip.remote_gw_pip.ip_address
   description = "The public IP address of the remote network gateway"
+
+  depends_on =  [azurerm_virtual_network_gateway.remote_network_gateway]
 }
