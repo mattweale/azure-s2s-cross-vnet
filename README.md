@@ -15,6 +15,8 @@ Once deployed it should look like this:
 
 ![image](images/azure-s2s-cross-vnet.png)
 
+Note that this stores state locally so a backend block with need to be added if required.
+
 # Deployment
 
 Steps:

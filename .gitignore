@@ -38,3 +38,4 @@ override.tf.json
 draw.io/**
 logging.tf
 keyvault.tf
+backend.cfg
